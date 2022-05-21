@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
     public float downBound = -10;
     [SerializeField]
     private GameObject laserPrefab;
+    [SerializeField]
+    private int cooldown = 5;
+    private int cooldownTimer = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -25,9 +28,20 @@ public class Player : MonoBehaviour
         playerMovement();
         outOfBounds();
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        bool canShoot = false;
+        if (cooldownTimer == 0)
+        {
+            canShoot = true;
+        }
+        else
+        {
+            cooldownTimer--;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && canShoot)
         {
             Instantiate(laserPrefab, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
+            cooldownTimer = cooldown;
         }
     }
 

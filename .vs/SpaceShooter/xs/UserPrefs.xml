@@ -1,7 +1,8 @@
 ﻿<Properties StartupConfiguration="{31EA003C-1CF9-D946-A919-8AC5ED6BE76A}|">
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player.cs">
     <Files>
-      <File FileName="Assets/Scripts/Player.cs" Line="31" Column="10" />
+      <File FileName="Assets/Scripts/Laser.cs" Line="10" Column="1" IsPinned="True" />
+      <File FileName="Assets/Scripts/Player.cs" Line="16" Column="30" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -13,7 +14,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="65dfd821-ab2e-4183-a98d-6cdf2b6b23a3" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="a6b9597f-2c9c-4d69-b8fb-562260a320a4" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

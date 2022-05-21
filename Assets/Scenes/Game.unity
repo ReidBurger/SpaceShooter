@@ -239,6 +239,7 @@ MonoBehaviour:
   upBound: 9.25
   downBound: -2
   laserPrefab: {fileID: 8239665468679453336, guid: 29f651d1965b54240b7db4b23fdcd058, type: 3}
+  cooldown: 7
 --- !u!1 &1145975411
 GameObject:
   m_ObjectHideFlags: 0
