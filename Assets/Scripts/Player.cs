@@ -6,15 +6,17 @@ public class Player : MonoBehaviour
 {
     [SerializeField]
     private float speed = 5;
-    public float leftBound = -10;
-    public float rightBound = 10;
-    public float upBound = 10;
-    public float downBound = -10;
+    public float upBound = 9.25f;
+    public float downBound = -2f;
+    public float leftBound = -10f;
+    public float rightBound = 10f;
     [SerializeField]
     private GameObject laserPrefab;
     [SerializeField]
-    private int cooldown = 5;
-    private int cooldownTimer = 0;
+    private float cooldown = 0.2f;
+    private float canShoot = -1;
+    [SerializeField]
+    private int lives = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -22,30 +24,7 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(0, 0, 0);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        playerMovement();
-        outOfBounds();
-
-        bool canShoot = false;
-        if (cooldownTimer == 0)
-        {
-            canShoot = true;
-        }
-        else
-        {
-            cooldownTimer--;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && canShoot)
-        {
-            Instantiate(laserPrefab, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
-            cooldownTimer = cooldown;
-        }
-    }
-
-    void playerMovement()
+    void PlayerMovement()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
@@ -55,7 +34,7 @@ public class Player : MonoBehaviour
         transform.Translate(direction * speed * Time.deltaTime);
     }
 
-    void outOfBounds()
+    void OutOfBounds()
     {
         if (transform.position.x > leftBound && transform.position.x < rightBound && transform.position.y > downBound && transform.position.y < upBound)
         {
@@ -66,5 +45,32 @@ public class Player : MonoBehaviour
             transform.position = new Vector3(Mathf.Clamp(transform.position.x, leftBound, rightBound), transform.position.y, 0);
             transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, downBound, upBound), 0);
         }
+    }
+
+    void FireLaser()
+    {
+        canShoot = Time.time + cooldown;
+        Instantiate(laserPrefab, new Vector3(transform.position.x, transform.position.y + 1, 0), Quaternion.identity);
+    }
+
+    public void Damage()
+    {
+        lives--;
+        if (lives < 1)
+        {
+            Destroy(this.gameObject);
+        }
+
+        Debug.Log("Lives Remaining: " + lives);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        PlayerMovement();
+        OutOfBounds();
+
+        if (Input.GetKeyDown(KeyCode.Space) && canShoot < Time.time)
+            FireLaser();
     }
 }

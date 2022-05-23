@@ -11,10 +11,9 @@ public class Laser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (transform.position.y < upBound)
         {
-            transform.Translate(new Vector3(0, 1, 0) * velocity * Time.deltaTime);
+            transform.Translate(Vector3.up * velocity * Time.deltaTime);
         }
         else
         {
