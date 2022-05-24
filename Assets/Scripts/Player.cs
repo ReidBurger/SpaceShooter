@@ -18,6 +18,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int lives = 3;
 
+    public delegate void PlayerDies();
+    public static event PlayerDies playerDeath;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,7 +61,10 @@ public class Player : MonoBehaviour
         lives--;
         if (lives < 1)
         {
+            if (playerDeath != null)
+                playerDeath();
             Destroy(this.gameObject);
+
         }
 
         Debug.Log("Lives Remaining: " + lives);

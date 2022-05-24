@@ -10,6 +10,11 @@ public class Enemy : MonoBehaviour
     public float leftBound = -10f;
     public float rightBound = 10f;
 
+    private void Start()
+    {
+        Player.playerDeath += stopMoving;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Laser"))
@@ -18,15 +23,20 @@ public class Enemy : MonoBehaviour
             Destroy(other.gameObject);
         }
         else if (other.CompareTag("Player"))
-        {
-            Destroy(this.gameObject);
-
+        { 
             Player player = other.transform.GetComponent<Player>();
             if (player != null)
             {
                 player.Damage();
             }
+            Player.playerDeath -= stopMoving;
+            Destroy(this.gameObject);
         }
+    }
+
+    private void stopMoving()
+    {
+        speed = -0.5f;
     }
 
     // Update is called once per frame
