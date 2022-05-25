@@ -48,8 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
-  upBound: 9.25
-  downBound: -2
+  upBound: 10
+  downBound: -3
   leftBound: -10
   rightBound: 10
 --- !u!50 &-7034647272065468552

@@ -19,7 +19,8 @@ public class Player : MonoBehaviour
     private float canShoot = -1;
     [SerializeField]
     private int lives = 3;
-    private bool tripleShotActive = true;
+    private bool tripleShotActive = false;
+    private float powerupTime = 5;
 
     public delegate void PlayerDies();
     public static event PlayerDies playerDeath;
@@ -75,6 +76,18 @@ public class Player : MonoBehaviour
         }
 
         Debug.Log("Lives Remaining: " + lives);
+    }
+
+    public void TripleShotActivate()
+    {
+        tripleShotActive = true;
+        StartCoroutine(PowerdownTripleShot());
+    }
+
+    IEnumerator PowerdownTripleShot()
+    {
+        yield return new WaitForSeconds(powerupTime);
+        tripleShotActive = false;
     }
 
     // Update is called once per frame
