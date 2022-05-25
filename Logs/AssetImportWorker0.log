@@ -2385,3 +2385,90 @@ AssetImportParameters requested are different than current active one (requested
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 605.177829 seconds.
+  path: Assets/Prefabs/Triple_Shot_Powerup.prefab
+  artifactKey: Guid(4f29ef9649fa745b98a2913425ec7221) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Triple_Shot_Powerup.prefab using Guid(4f29ef9649fa745b98a2913425ec7221) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '79b2d8b101137093f171cec824b310f8') in 0.081962 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 14.123944 seconds.
+  path: Assets/Scripts/Enemy.cs
+  artifactKey: Guid(e23809c12a4ae431fad26c225a8f0429) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Enemy.cs using Guid(e23809c12a4ae431fad26c225a8f0429) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '74eba40665237d66813a2f0a73d1a9a2') in 0.002152 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 48.245043 seconds.
+  path: Assets
+  artifactKey: Guid(00000000000000001000000000000000) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets using Guid(00000000000000001000000000000000) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '79842766b460edbeab6a34051e857a80') in 0.001751 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 4.371484 seconds.
+  path: Assets/Animations
+  artifactKey: Guid(ffe7cd91b8cc84788a57ca0763b40006) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations using Guid(ffe7cd91b8cc84788a57ca0763b40006) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ced5e77bc22bf5c8b62875036b75a81c') in 0.000998 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 70.244367 seconds.
+  path: Assets/Sprites/Power_Ups/Triple_Shot/Powerup3_0008_00001.png
+  artifactKey: Guid(94af496add7d99549a0a09e585214f18) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Power_Ups/Triple_Shot/Powerup3_0008_00001.png using Guid(94af496add7d99549a0a09e585214f18) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7b41ee05dec52a9b19ed6da52cc63295') in 0.066116 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000084 seconds.
+  path: Assets/Sprites/Power_Ups/Triple_Shot/Powerup3_0008_00006.png
+  artifactKey: Guid(a58a8d41efafe8343b08c0b7f3b1b916) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Power_Ups/Triple_Shot/Powerup3_0008_00006.png using Guid(a58a8d41efafe8343b08c0b7f3b1b916) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd969cf6718b87d8d2cf85fac57da24bf') in 0.033977 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000069 seconds.
+  path: Assets/Sprites/Power_Ups/Triple_Shot/Powerup3_0008_00004.png
+  artifactKey: Guid(08721a7e8122ae54cb60f5e90df70269) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Power_Ups/Triple_Shot/Powerup3_0008_00004.png using Guid(08721a7e8122ae54cb60f5e90df70269) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '16418a0cc10e791394af8e3431dee3a3') in 0.041534 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000110 seconds.
+  path: Assets/Sprites/Power_Ups/Triple_Shot/Powerup3_0008_00009.png
+  artifactKey: Guid(27c59d36a1e7ec540864bea51d49bdaf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Power_Ups/Triple_Shot/Powerup3_0008_00009.png using Guid(27c59d36a1e7ec540864bea51d49bdaf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a1ee50ea9cc9dc3e32a7fbf561c49736') in 0.031193 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000088 seconds.
+  path: Assets/Sprites/Power_Ups/Triple_Shot/Powerup3_0008_00013.png
+  artifactKey: Guid(201c6bec23c7da9448c3e8bf7a26e89f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Power_Ups/Triple_Shot/Powerup3_0008_00013.png using Guid(201c6bec23c7da9448c3e8bf7a26e89f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'acaed0cc879bdc75229972adb9a984e6') in 0.078520 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000179 seconds.
+  path: Assets/Sprites/Power_Ups/Triple_Shot/Powerup3_0008_00007.png
+  artifactKey: Guid(f669da5eb59644649bd06f1af0e73349) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Power_Ups/Triple_Shot/Powerup3_0008_00007.png using Guid(f669da5eb59644649bd06f1af0e73349) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '90c0a1daa0bf4d662a4762e098ee0484') in 0.033336 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000084 seconds.
+  path: Assets/Sprites/Power_Ups/Triple_Shot/Powerup3_0008_00003.png
+  artifactKey: Guid(3f1c2590613aad2458e88e95f67764a7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Power_Ups/Triple_Shot/Powerup3_0008_00003.png using Guid(3f1c2590613aad2458e88e95f67764a7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ee05e848840edffb5c3f4996a0a2c87e') in 0.035068 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000090 seconds.
+  path: Assets/Sprites/Power_Ups/Triple_Shot/Powerup3_0008_00008.png
+  artifactKey: Guid(d371d99a043ff16448c9dc33862f94f9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Power_Ups/Triple_Shot/Powerup3_0008_00008.png using Guid(d371d99a043ff16448c9dc33862f94f9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7332cd994536f479e49117c18a450e5c') in 0.039399 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000101 seconds.
+  path: Assets/Sprites/Power_Ups/Triple_Shot/Powerup3_0008_00014.png
+  artifactKey: Guid(fadf90cfbc0b3524ab83eda8a359c35a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Power_Ups/Triple_Shot/Powerup3_0008_00014.png using Guid(fadf90cfbc0b3524ab83eda8a359c35a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1ec4b67011ec75c012b34e45a0bcc2b1') in 0.038773 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000107 seconds.
+  path: Assets/Sprites/Power_Ups/Triple_Shot/Powerup3_0008_00015.png
+  artifactKey: Guid(203a96b1228f08f4e8f7e2a4f756a0df) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Power_Ups/Triple_Shot/Powerup3_0008_00015.png using Guid(203a96b1228f08f4e8f7e2a4f756a0df) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c5f18dab763476428645bb4576095c85') in 0.031902 seconds 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
