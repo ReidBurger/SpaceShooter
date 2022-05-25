@@ -13,10 +13,13 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject laserPrefab;
     [SerializeField]
+    private GameObject tripleShotPrefab;
+    [SerializeField]
     private float cooldown = 0.2f;
     private float canShoot = -1;
     [SerializeField]
     private int lives = 3;
+    private bool tripleShotActive = true;
 
     public delegate void PlayerDies();
     public static event PlayerDies playerDeath;
@@ -53,7 +56,11 @@ public class Player : MonoBehaviour
     void FireLaser()
     {
         canShoot = Time.time + cooldown;
-        Instantiate(laserPrefab, new Vector3(transform.position.x, transform.position.y + 1, 0), Quaternion.identity);
+
+        if (!tripleShotActive)
+        { Instantiate(laserPrefab, new Vector3(transform.position.x, transform.position.y + 1.05f, 0), Quaternion.identity); }
+        else { Instantiate(tripleShotPrefab, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity); }
+
     }
 
     public void Damage()

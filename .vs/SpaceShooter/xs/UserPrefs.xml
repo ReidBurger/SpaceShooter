@@ -2,9 +2,9 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Enemy.cs">
     <Files>
       <File FileName="Assets/Scripts/Laser.cs" Line="10" Column="1" IsPinned="True" />
-      <File FileName="Assets/Scripts/SpawnManager.cs" Line="12" Column="35" />
-      <File FileName="Assets/Scripts/Player.cs" Line="65" Column="31" />
-      <File FileName="Assets/Scripts/Enemy.cs" Line="39" Column="22" />
+      <File FileName="Assets/Scripts/Enemy.cs" Line="18" Column="32" />
+      <File FileName="Assets/Scripts/SpawnManager.cs" />
+      <File FileName="Assets/Scripts/Player.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -22,7 +22,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="1d4a83fc-f930-4562-b09d-6f31931b91b9" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="30781502-0bb5-42e2-b3b7-25189079a357" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -42,3 +42,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 3011074605
+    locked: 0
+  - name: Laser
+    uniqueID: 3567061351
+    locked: 0
+  - name: Player
+    uniqueID: 3219551211
+    locked: 0
+  - name: Enemies
+    uniqueID: 1942949333
+    locked: 0
+  - name: UI
+    uniqueID: 1093906949
+    locked: 0
