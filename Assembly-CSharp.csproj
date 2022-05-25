@@ -62,6 +62,9 @@
     <Compile Include="Assets/Scripts/Laser.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets/Materials/Shaders/Galaxy.shader" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="UnityEngine">
       <HintPath>/Applications/Unity/Hub/Editor/2021.3.2f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

@@ -1,10 +1,10 @@
 ﻿<Properties StartupConfiguration="{31EA003C-1CF9-D946-A919-8AC5ED6BE76A}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SpawnManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Enemy.cs">
     <Files>
-      <File FileName="Assets/Scripts/Laser.cs" IsPinned="True" />
-      <File FileName="Assets/Scripts/SpawnManager.cs" Line="17" Column="6" />
-      <File FileName="Assets/Scripts/Player.cs" />
-      <File FileName="Assets/Scripts/Enemy.cs" Line="10" Column="35" />
+      <File FileName="Assets/Scripts/Laser.cs" Line="10" Column="1" IsPinned="True" />
+      <File FileName="Assets/Scripts/SpawnManager.cs" Line="12" Column="35" />
+      <File FileName="Assets/Scripts/Player.cs" Line="65" Column="31" />
+      <File FileName="Assets/Scripts/Enemy.cs" Line="39" Column="22" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -12,7 +12,7 @@
           <Node name="SpaceShooter" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
-                <Node name="SpawnManager.cs" selected="True" />
+                <Node name="Enemy.cs" selected="True" />
               </Node>
             </Node>
           </Node>
