@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     public float leftBound = -10f;
     public float rightBound = 10f;
     [SerializeField]
+    private GameObject shieldPrefab;
+    [SerializeField]
     private GameObject laserPrefab;
     [SerializeField]
     private GameObject tripleShotPrefab;
@@ -19,8 +21,12 @@ public class Player : MonoBehaviour
     private float canShoot = -1;
     [SerializeField]
     private int lives = 3;
+    private float speedMultiplier = 1f;
     private bool tripleShotActive = false;
-    private float powerupTime = 5;
+    private bool speedActive = false;
+    private bool shieldActive = false;
+    private float tripleShotTime = 5;
+    private float speedTime = 7;
 
     public delegate void PlayerDies();
     public static event PlayerDies playerDeath;
@@ -38,7 +44,11 @@ public class Player : MonoBehaviour
 
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
 
-        transform.Translate(direction * speed * Time.deltaTime);
+        if (speedActive)
+            speedMultiplier = 2f;
+        else speedMultiplier = 1f;
+
+        transform.Translate(direction * speed * speedMultiplier * Time.deltaTime);
     }
 
     void OutOfBounds()
@@ -66,12 +76,20 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
-        lives--;
+        if (shieldActive)
+        {
+            shieldActive = false;
+        }
+        else
+        {
+            lives--;
+        }
+            
         if (lives < 1)
         {
             if (playerDeath != null)
                 playerDeath();
-            Destroy(this.gameObject);
+            Destroy(gameObject);
 
         }
 
@@ -80,14 +98,68 @@ public class Player : MonoBehaviour
 
     public void TripleShotActivate()
     {
+        bool isStillActive = false;
+        if (tripleShotActive == true)
+        {
+            isStillActive = true;
+        }
+
         tripleShotActive = true;
-        StartCoroutine(PowerdownTripleShot());
+        StartCoroutine(PowerdownTripleShot(isStillActive));
     }
 
-    IEnumerator PowerdownTripleShot()
+    IEnumerator PowerdownTripleShot(bool isStillActive)
     {
-        yield return new WaitForSeconds(powerupTime);
+        // Wait until it turns false, then turn it back to true
+        if (isStillActive)
+        {
+            while (tripleShotActive == true)
+            {
+                yield return null;
+            }
+            tripleShotActive = true;
+        }
+
+        yield return new WaitForSeconds(tripleShotTime);
         tripleShotActive = false;
+    }
+
+    public void SpeedActivate()
+    {
+        bool isStillActive = false;
+        if (tripleShotActive == true)
+        {
+            isStillActive = true;
+        }
+
+        speedActive = true;
+        StartCoroutine(PowerdownSpeed(isStillActive));
+    }
+
+    IEnumerator PowerdownSpeed(bool isStillActive)
+    {
+        // Wait until it turns false, then turn it back to true
+        if (isStillActive)
+        {
+            while (speedActive == true)
+            {
+                yield return null;
+            }
+            speedActive = true;
+        }
+
+        yield return new WaitForSeconds(speedTime);
+        speedActive = false;
+    }
+
+    public void ShieldActivate()
+    {
+        if (!shieldActive)
+        {
+            shieldActive = true;
+            GameObject shield = Instantiate(shieldPrefab, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
+            shield.transform.parent = transform;
+        }
     }
 
     // Update is called once per frame

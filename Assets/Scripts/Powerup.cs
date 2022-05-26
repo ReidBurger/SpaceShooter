@@ -7,6 +7,11 @@ public class Powerup : MonoBehaviour
     [SerializeField]
     private float speed = 2;
     public float downBound = -2f;
+    // 0 = Triple Shot
+    // 1 = Speed
+    // 2 = Shield
+    [SerializeField]
+    private int powerupID;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -15,9 +20,14 @@ public class Powerup : MonoBehaviour
             Player player  = collision.transform.GetComponent<Player>();
             if (player != null)
             {
-                player.TripleShotActivate();
+                if (powerupID == 0)
+                    player.TripleShotActivate();
+                else if (powerupID == 1)
+                    player.SpeedActivate();
+                else if (powerupID == 2)
+                    player.ShieldActivate();
             }
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 

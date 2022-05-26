@@ -7,9 +7,9 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject enemy;
     [SerializeField]
-    private GameObject tripleShotPowerup;
-    [SerializeField]
     private GameObject enemy_container;
+    [SerializeField]
+    private GameObject[] powerups;
     public float upBound = 9.25f;
     public float leftBound = -10f;
     public float rightBound = 10f;
@@ -27,20 +27,20 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    IEnumerator TripleShotSpawnRoutine()
+    IEnumerator PowerupSpawnRoutine()
     {
         while (!stopSpawning)
         {
             float xRange = Random.Range(leftBound + 1, rightBound - 1);
-            Instantiate(tripleShotPowerup, new Vector2(xRange, upBound), Quaternion.identity);
-            yield return new WaitForSeconds(Random.Range(10, 20));
+            Instantiate(powerups[Random.Range(0, powerups.Length)], new Vector2(xRange, upBound), Quaternion.identity);
+            yield return new WaitForSeconds(Random.Range(4, 15));
         }
     }
 
     private void Start()
     {
         StartCoroutine(EnemySpawnRoutine());
-        StartCoroutine(TripleShotSpawnRoutine());
+        StartCoroutine(PowerupSpawnRoutine());
         Player.playerDeath += onPlayerDeath;
     }
 

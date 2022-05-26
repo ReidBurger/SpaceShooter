@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.CompareTag("Laser"))
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             Destroy(other.gameObject);
         }
         else if (other.CompareTag("Player"))
@@ -30,7 +30,17 @@ public class Enemy : MonoBehaviour
                 player.Damage();
             }
             Player.playerDeath -= stopMoving;
-            Destroy(this.gameObject);
+            Destroy(gameObject);
+        }
+        else if (other.CompareTag("Shield"))
+        {
+            Player player = other.transform.parent.GetComponent<Player>();
+            if (player != null)
+            {
+                player.Damage();
+            }
+            Destroy(gameObject);
+            Destroy(other.gameObject);
         }
     }
 
