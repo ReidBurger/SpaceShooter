@@ -488,9 +488,9 @@ MonoBehaviour:
   enemy: {fileID: 5852172156065629468, guid: af52c4a41cb584a519295010ce3cb08f, type: 3}
   enemy_container: {fileID: 307016349}
   powerups:
-  - {fileID: 3387692467431063868, guid: 4f29ef9649fa745b98a2913425ec7221, type: 3}
-  - {fileID: 456362884330463201, guid: 53a252007eb904e07a8fc7adb9757093, type: 3}
   - {fileID: 4834041931915084934, guid: a42d2a7aa3d1e448b8542858b1e56ebc, type: 3}
+  - {fileID: 456362884330463201, guid: 53a252007eb904e07a8fc7adb9757093, type: 3}
+  - {fileID: 3387692467431063868, guid: 4f29ef9649fa745b98a2913425ec7221, type: 3}
   upBound: 10
   leftBound: -10
   rightBound: 10

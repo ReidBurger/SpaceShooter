@@ -22,16 +22,6 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
             Destroy(other.gameObject);
         }
-        else if (other.CompareTag("Player"))
-        { 
-            Player player = other.transform.GetComponent<Player>();
-            if (player != null)
-            {
-                player.Damage();
-            }
-            Player.playerDeath -= stopMoving;
-            Destroy(gameObject);
-        }
         else if (other.CompareTag("Shield"))
         {
             Player player = other.transform.parent.GetComponent<Player>();
@@ -41,6 +31,16 @@ public class Enemy : MonoBehaviour
             }
             Destroy(gameObject);
             Destroy(other.gameObject);
+        }
+        else if (other.CompareTag("Player"))
+        { 
+            Player player = other.transform.GetComponent<Player>();
+            if (player != null)
+            {
+                player.Damage();
+            }
+            Player.playerDeath -= stopMoving;
+            Destroy(gameObject);
         }
     }
 
