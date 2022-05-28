@@ -18,23 +18,33 @@ public class Player : MonoBehaviour
     private GameObject tripleShotPrefab;
     [SerializeField]
     private float cooldown = 0.2f;
+    [SerializeField]
+    private GameObject rightDamage;
+    [SerializeField]
+    private GameObject leftDamage;
     private float canShoot = -1;
     [SerializeField]
     private int lives = 3;
     private float speedMultiplier = 1f;
-    private bool tripleShotActive = false;
     private bool speedActive = false;
     private bool shieldActive = false;
-    private float tripleShotTime = 5;
     private float speedTime = 7;
+    private int score = 0;
+    private int tripleShotsRemaining = 0;
+    private int tripleShotMax = 12;
+    private UIManager uiManager;
+    private int chooseWing = 0;
 
     public delegate void PlayerDies();
-    public static event PlayerDies playerDeath;
+    public static event PlayerDies PlayerDeath;
 
     // Start is called before the first frame update
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
+        uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        rightDamage.SetActive(false);
+        leftDamage.SetActive(false);
     }
 
     void PlayerMovement()
@@ -43,10 +53,6 @@ public class Player : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
 
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
-
-        if (speedActive)
-            speedMultiplier = 2f;
-        else speedMultiplier = 1f;
 
         transform.Translate(direction * speed * speedMultiplier * Time.deltaTime);
     }
@@ -68,9 +74,12 @@ public class Player : MonoBehaviour
     {
         canShoot = Time.time + cooldown;
 
-        if (!tripleShotActive)
-        { Instantiate(laserPrefab, new Vector3(transform.position.x, transform.position.y + 1.05f, 0), Quaternion.identity); }
-        else { Instantiate(tripleShotPrefab, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity); }
+        if (tripleShotsRemaining > 0)
+        {
+            Instantiate(tripleShotPrefab, new Vector3(transform.position.x, transform.position.y + 1.05f, 0), Quaternion.identity);
+            tripleShotsRemaining--;
+        }
+        else { Instantiate(laserPrefab, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity); }
 
     }
 
@@ -82,52 +91,42 @@ public class Player : MonoBehaviour
         }
         else
         {
+            if (chooseWing != 0)
+            {
+                leftDamage.SetActive(true);
+                rightDamage.SetActive(true);
+            }
+            else
+            {
+                chooseWing = Random.Range(1, 3);
+                if (chooseWing == 1)
+                    leftDamage.SetActive(true);
+                else rightDamage.SetActive(true);
+            }
+            
             lives--;
+            uiManager.updateLives(lives);
         }
             
         if (lives < 1)
         {
-            if (playerDeath != null)
-                playerDeath();
+            PlayerDeath?.Invoke();
             Destroy(gameObject);
-
         }
-
-        Debug.Log("Lives Remaining: " + lives);
     }
 
     public void TripleShotActivate()
     {
-        bool isStillActive = false;
-        if (tripleShotActive == true)
-        {
-            isStillActive = true;
-        }
-
-        tripleShotActive = true;
-        StartCoroutine(PowerdownTripleShot(isStillActive));
-    }
-
-    IEnumerator PowerdownTripleShot(bool isStillActive)
-    {
-        // Wait until it turns false, then turn it back to true
-        if (isStillActive)
-        {
-            while (tripleShotActive == true)
-            {
-                yield return null;
-            }
-            tripleShotActive = true;
-        }
-
-        yield return new WaitForSeconds(tripleShotTime);
-        tripleShotActive = false;
+        tripleShotsRemaining = tripleShotMax;
     }
 
     public void SpeedActivate()
     {
+        speedMultiplier = 2f;
+        cooldown = 0f;
+
         bool isStillActive = false;
-        if (tripleShotActive == true)
+        if (speedActive == true)
         {
             isStillActive = true;
         }
@@ -149,6 +148,8 @@ public class Player : MonoBehaviour
         }
 
         yield return new WaitForSeconds(speedTime);
+        speedMultiplier = 1f;
+        cooldown = 0.2f;
         speedActive = false;
     }
 
@@ -160,6 +161,12 @@ public class Player : MonoBehaviour
             GameObject shield = Instantiate(shieldPrefab, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
             shield.transform.parent = transform;
         }
+    }
+
+    public void addScore(int addTo)
+    {
+        score += addTo;
+        uiManager.UpdateScore(score);
     }
 
     // Update is called once per frame

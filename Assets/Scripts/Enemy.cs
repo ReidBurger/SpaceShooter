@@ -9,44 +9,55 @@ public class Enemy : MonoBehaviour
     public float downBound = -2f;
     public float leftBound = -10f;
     public float rightBound = 10f;
+    private Player player;
+    Animator animator;
+    new BoxCollider2D collider;
 
     private void Start()
     {
-        Player.playerDeath += stopMoving;
+        Player.PlayerDeath += stopMoving;
+        player = GameObject.Find("Player").GetComponent<Player>();
+
+        if (player == null)
+            Debug.Log("Player is null");
+
+        animator = gameObject.GetComponent<Animator>();
+        collider = gameObject.GetComponent<BoxCollider2D>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Laser"))
         {
-            Destroy(gameObject);
+            player.addScore(10);
             Destroy(other.gameObject);
+            Die();
         }
         else if (other.CompareTag("Shield"))
         {
-            Player player = other.transform.parent.GetComponent<Player>();
-            if (player != null)
-            {
-                player.Damage();
-            }
-            Destroy(gameObject);
+            player.Damage();
             Destroy(other.gameObject);
+            Die();
         }
         else if (other.CompareTag("Player"))
-        { 
-            Player player = other.transform.GetComponent<Player>();
-            if (player != null)
-            {
-                player.Damage();
-            }
-            Player.playerDeath -= stopMoving;
-            Destroy(gameObject);
+        {
+            player.Damage();
+            Player.PlayerDeath -= stopMoving;
+            Die();
         }
     }
 
     private void stopMoving()
     {
         speed = 1f;
+    }
+
+    private void Die()
+    {
+        speed = 1f;
+        animator.SetTrigger("OnEnemyDeath");
+        collider.enabled = false;
+        Destroy(gameObject, 2.5f);
     }
 
     // Update is called once per frame
