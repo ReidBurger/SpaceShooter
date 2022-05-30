@@ -1,0 +1,12 @@
+<<<<<<< HEAD
+
+# Library is not needed
+/Library
+=======
+/Library/ArtifactDB
+web-build/
+credentials.json
+>>>>>>> parent of a291ef0d (Update gitignore)
+
+# macOS
+.DS_Store
