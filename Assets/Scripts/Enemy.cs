@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
     public float leftBound = -10f;
     public float rightBound = 10f;
     private Player player;
+    private UIManager uiManager;
+    private AudioSource audioSource;
     Animator animator;
     new BoxCollider2D collider;
 
@@ -17,8 +19,12 @@ public class Enemy : MonoBehaviour
     {
         Player.PlayerDeath += stopMoving;
         player = GameObject.Find("Player").GetComponent<Player>();
+        audioSource = gameObject.GetComponent<AudioSource>();
+        uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
 
         if (player == null)
+            Debug.Log("Player is null");
+        if (audioSource == null)
             Debug.Log("Player is null");
 
         animator = gameObject.GetComponent<Animator>();
@@ -31,12 +37,12 @@ public class Enemy : MonoBehaviour
         {
             player.addScore(10);
             Destroy(other.gameObject);
+            uiManager.kills++;
             Die();
         }
         else if (other.CompareTag("Shield"))
         {
             player.Damage();
-            Destroy(other.gameObject);
             Die();
         }
         else if (other.CompareTag("Player"))
@@ -57,6 +63,8 @@ public class Enemy : MonoBehaviour
         speed = 1f;
         animator.SetTrigger("OnEnemyDeath");
         collider.enabled = false;
+        audioSource.pitch = Random.Range(0.8f, 1.2f);
+        audioSource.Play();
         Destroy(gameObject, 2.5f);
     }
 
@@ -67,6 +75,7 @@ public class Enemy : MonoBehaviour
 
         if (transform.position.y < downBound)
         {
+            uiManager.enemiesPassed++;
             float xPos = Random.Range(leftBound + 1f, rightBound - 1f);
             transform.position = new Vector3(xPos, upBound, 0);
         }

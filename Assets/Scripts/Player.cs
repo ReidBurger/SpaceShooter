@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -22,16 +23,51 @@ public class Player : MonoBehaviour
     private GameObject rightDamage;
     [SerializeField]
     private GameObject leftDamage;
+    [SerializeField]
+    private GameObject shield;
     private float canShoot = -1;
     [SerializeField]
     private int lives = 3;
+
+    [SerializeField]
+    private Slider tripleShotSlider;
+    [SerializeField]
+    private Image tripleShotSliderFill;
+    [SerializeField]
+    private Slider shieldSlider;
+    [SerializeField]
+    private Image shieldSliderFill;
+    [SerializeField]
+    private Slider speedSlider;
+    [SerializeField]
+    private Image speedSliderFill;
+
+    [SerializeField]
+    private AudioClip laserShotSFX;
+    [SerializeField]
+    private AudioClip explosionSFX;
+    [SerializeField]
+    private AudioClip powerdownSFX;
+    [SerializeField]
+    private AudioClip powerupSFX;
+    [SerializeField]
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioSource dmg1source;
+    [SerializeField]
+    private AudioSource dmg2source;
     private float speedMultiplier = 1f;
-    private bool speedActive = false;
-    private bool shieldActive = false;
-    private float speedTime = 7;
     private int score = 0;
-    private int tripleShotsRemaining = 0;
+
+    private bool speedActive = false;
+    private float speedTime = 70; // in 1/10 of seconds
+    private float speedTimeRemaining = 0;
+    private float shieldTime = 200; // in 1/10 of seconds
+    private float shieldTimeRemaining = 0;
     private int tripleShotMax = 12;
+    private int tripleShotsRemaining = 0;
+
+    [SerializeField]
     private UIManager uiManager;
     private int chooseWing = 0;
 
@@ -43,8 +79,12 @@ public class Player : MonoBehaviour
     {
         transform.position = new Vector3(0, 0, 0);
         uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+
         rightDamage.SetActive(false);
         leftDamage.SetActive(false);
+        shield.SetActive(false);
+
+        StartCoroutine(CountSeconds());
     }
 
     void PlayerMovement()
@@ -77,17 +117,25 @@ public class Player : MonoBehaviour
         if (tripleShotsRemaining > 0)
         {
             Instantiate(tripleShotPrefab, new Vector3(transform.position.x, transform.position.y + 1.05f, 0), Quaternion.identity);
+            uiManager.shotsFired+=3;
+            updateTripleShotUI();
             tripleShotsRemaining--;
         }
-        else { Instantiate(laserPrefab, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity); }
+        else
+        {
+            Instantiate(laserPrefab, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
+            uiManager.shotsFired++;
+        }
+
+        audioSource.PlayOneShot(laserShotSFX, 0.6f);
 
     }
 
     public void Damage()
     {
-        if (shieldActive)
+        if (shield.activeSelf)
         {
-            shieldActive = false;
+            shield.SetActive(false);
         }
         else
         {
@@ -103,21 +151,30 @@ public class Player : MonoBehaviour
                     leftDamage.SetActive(true);
                 else rightDamage.SetActive(true);
             }
-            
+
+            audioSource.PlayOneShot(explosionSFX, 1f);
             lives--;
+            if (lives == 2 && !dmg1source.isPlaying)
+                dmg1source.Play();
+            else if (lives == 1 && !dmg2source.isPlaying)
+                dmg2source.Play();
+
             uiManager.updateLives(lives);
         }
-            
+        audioSource.PlayOneShot(powerdownSFX, 0.6f);
+
         if (lives < 1)
         {
             PlayerDeath?.Invoke();
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
     public void TripleShotActivate()
     {
         tripleShotsRemaining = tripleShotMax;
+        updateTripleShotUI();
+        audioSource.PlayOneShot(powerupSFX, 0.8f);
     }
 
     public void SpeedActivate()
@@ -125,14 +182,17 @@ public class Player : MonoBehaviour
         speedMultiplier = 2f;
         cooldown = 0f;
 
-        bool isStillActive = false;
-        if (speedActive == true)
-        {
-            isStillActive = true;
-        }
+        audioSource.PlayOneShot(powerupSFX, 0.8f);
 
-        speedActive = true;
-        StartCoroutine(PowerdownSpeed(isStillActive));
+        if (!speedActive)
+        {
+            speedActive = true;
+            StartCoroutine(PowerdownSpeed(false));
+        }
+        else
+        {
+            StartCoroutine(PowerdownSpeed(true));
+        }
     }
 
     IEnumerator PowerdownSpeed(bool isStillActive)
@@ -147,7 +207,11 @@ public class Player : MonoBehaviour
             speedActive = true;
         }
 
-        yield return new WaitForSeconds(speedTime);
+        for (speedTimeRemaining = speedTime; speedTimeRemaining > 0; speedTimeRemaining--)
+        {
+            updateSpeedUI();
+            yield return new WaitForSeconds(0.1f);
+        }
         speedMultiplier = 1f;
         cooldown = 0.2f;
         speedActive = false;
@@ -155,12 +219,35 @@ public class Player : MonoBehaviour
 
     public void ShieldActivate()
     {
-        if (!shieldActive)
+        audioSource.PlayOneShot(powerupSFX, 0.8f);
+
+        if (!shield.activeSelf)
         {
-            shieldActive = true;
-            GameObject shield = Instantiate(shieldPrefab, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
-            shield.transform.parent = transform;
+            shield.SetActive(true);
+            StartCoroutine(PowerdownShield(false));
         }
+        else
+        {
+            StartCoroutine(PowerdownShield(true));
+        }
+    }
+
+    IEnumerator PowerdownShield(bool resetShield)
+    {
+        for (shieldTimeRemaining = shieldTime; shieldTimeRemaining > 0; shieldTimeRemaining--)
+        {
+            if (resetShield)
+            {
+                shieldTimeRemaining = shieldTime;
+                resetShield = false;
+            }
+            if (!shield.activeSelf)
+                shieldTimeRemaining = 0;
+            
+            updateShieldUI();
+            yield return new WaitForSeconds(0.1f);
+        }
+        shield.SetActive(false);
     }
 
     public void addScore(int addTo)
@@ -169,11 +256,63 @@ public class Player : MonoBehaviour
         uiManager.UpdateScore(score);
     }
 
+    private void updateTripleShotUI()
+    {
+        tripleShotSlider.value = tripleShotsRemaining - 1;
+        tripleShotSlider.maxValue = tripleShotMax;
+
+        if (tripleShotsRemaining > 1)
+        {
+            tripleShotSliderFill.color = Color.green;
+        }
+        else
+        {
+            tripleShotSliderFill.color = new Color(0, 0, 0, 0);
+        }
+
+    }
+
+    private void updateShieldUI()
+    {
+        shieldSlider.value = shieldTimeRemaining;
+        shieldSlider.maxValue = shieldTime;
+
+        if (shieldTimeRemaining > 1)
+            shieldSliderFill.color = Color.blue;
+        else
+            shieldSliderFill.color = new Color(0, 0, 0, 0);
+    }
+
+    private void updateSpeedUI()
+    {
+        speedSlider.value = speedTimeRemaining;
+        speedSlider.maxValue = speedTime;
+
+        if (speedTimeRemaining > 1)
+            speedSliderFill.color = Color.red;
+        else
+            speedSliderFill.color = new Color(0, 0, 0, 0);
+    }
+
+    IEnumerator CountSeconds()
+    {
+        while (lives > 0)
+        {
+            yield return new WaitForSeconds(1);
+            uiManager.gameTime++;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
         PlayerMovement();
         OutOfBounds();
+
+        if (shield.activeSelf)
+            updateShieldUI();
+        if (speedActive)
+            updateSpeedUI();
 
         if (Input.GetKeyDown(KeyCode.Space) && canShoot < Time.time)
             FireLaser();

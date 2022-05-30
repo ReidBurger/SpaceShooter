@@ -17,7 +17,17 @@ public class UIManager : MonoBehaviour
     private Text gameOverText;
     [SerializeField]
     private Text restartText;
+    [SerializeField]
+    private Text endgameStatsTitle;
+    [SerializeField]
+    private Text endgameStatsNumbers;
     private int score;
+
+    public int kills;
+    public int asteroidsDestroyed;
+    public int shotsFired;
+    public int enemiesPassed;
+    public int gameTime;
 
     private void Start()
     {
@@ -25,6 +35,8 @@ public class UIManager : MonoBehaviour
         Player.PlayerDeath += displayGameOver;
         gameOverText.gameObject.SetActive(false);
         restartText.gameObject.SetActive(false);
+        endgameStatsNumbers.gameObject.SetActive(false);
+        endgameStatsTitle.gameObject.SetActive(false);
     }
 
     public void UpdateScore(int playerScore)
@@ -44,6 +56,22 @@ public class UIManager : MonoBehaviour
         if (restartText != null)
         {
             restartText.gameObject.SetActive(true);
+        }
+
+        if (endgameStatsTitle != null)
+        {
+            endgameStatsTitle.gameObject.SetActive(true);
+        }
+
+        if (endgameStatsNumbers != null)
+        {
+            float accuracy = Mathf.Round((kills + asteroidsDestroyed) * 10000f / shotsFired) / 100f;
+            float mortality = Mathf.Round(kills * 10000f / (enemiesPassed + kills)) / 100f;
+            float killsPerSecond = Mathf.Round(kills * 100f / gameTime) / 100f;
+
+            Text scores = endgameStatsNumbers.GetComponent<Text>();
+            scores.text = kills + "\n" + accuracy + " %\n" + mortality + " %\n" + asteroidsDestroyed + "\n" + gameTime + " s\n" + killsPerSecond;
+            endgameStatsNumbers.gameObject.SetActive(true);
         }
 
         if (gameOverText != null)

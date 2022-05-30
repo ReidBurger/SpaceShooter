@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Asteroid : MonoBehaviour
 {
+    private UIManager uiManager;
     [SerializeField]
     private float moveSpeed = 2f;
     [SerializeField]
@@ -20,6 +21,7 @@ public class Asteroid : MonoBehaviour
     
     Player player;
     Animator animator;
+    AudioSource audioSource;
     new CircleCollider2D collider;
 
     // Start is called before the first frame update
@@ -34,17 +36,22 @@ public class Asteroid : MonoBehaviour
             moveSpeed *= 0.5f;
         }
 
-        player = GameObject.Find("Player").GetComponent<Player>();
+        GameObject pl = GameObject.Find("Player");
+        if (player != null)
+            player = player.GetComponent<Player>();
+
         animator = gameObject.GetComponent<Animator>();
         collider = gameObject.GetComponent<CircleCollider2D>();
-
-        if (player == null)
-            Debug.Log("Player is null");
+        audioSource = gameObject.GetComponent<AudioSource>();
+        uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
 
         if (animator == null)
             Debug.Log("Animator is null");
 
         if (collider == null)
+            Debug.Log("Animator is null");
+
+        if (audioSource == null)
             Debug.Log("Animator is null");
     }
 
@@ -52,6 +59,7 @@ public class Asteroid : MonoBehaviour
     {
         if (collision.CompareTag("Laser"))
         {
+            uiManager.asteroidsDestroyed++;
             if (asteroidType == 1)
             {
                 if (asteroidDurability < 1)
@@ -62,6 +70,8 @@ public class Asteroid : MonoBehaviour
                 else
                 {
                     Destroy(collision.gameObject);
+                    // this counteracts the shot so it's not considered a miss
+                    uiManager.shotsFired--;
                     asteroidDurability--;
                 }
             }
@@ -86,6 +96,17 @@ public class Asteroid : MonoBehaviour
     {
         animator.SetTrigger("OnAsteroidDestroy");
         collider.enabled = false;
+        if (asteroidType == 0)
+        {
+            audioSource.volume = 0.5f;
+            audioSource.pitch = 1.2f;
+        }
+        else
+        {
+            audioSource.volume = 1f;
+            audioSource.pitch = 0.6f;
+        }
+        audioSource.Play();
         Destroy(gameObject, 2.5f);
     }
 

@@ -25,7 +25,7 @@ public class SpawnManager : MonoBehaviour
             float xRange = Random.Range(leftBound + 1, rightBound - 1);
             GameObject newEnemy = Instantiate(enemy, new Vector3(xRange, upBound, 0), Quaternion.identity);
             newEnemy.transform.parent = enemy_container.transform;
-            yield return new WaitForSeconds(Random.Range(0.5f, 1.5f));
+            yield return new WaitForSeconds(Random.Range(0.4f, 1.3f));
         }
     }
 

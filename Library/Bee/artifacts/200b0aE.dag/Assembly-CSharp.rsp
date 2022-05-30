@@ -360,7 +360,6 @@
 "Assets/Scripts/Main_Menu/MainMenu.cs"
 "Assets/Scripts/Player.cs"
 "Assets/Scripts/Powerup.cs"
-"Assets/Scripts/Shield.cs"
 "Assets/Scripts/SpawnManager.cs"
 "Assets/Scripts/UIManager.cs"
 -langversion:9.0
